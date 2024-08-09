@@ -42,7 +42,7 @@ const Login = () => {
                                             <Grid item>
                                                 <Stack alignItems="center" justifyContent="center" spacing={1}>
                                                     <Typography color="primary.dark" gutterBottom variant={downMD ? 'h3' : 'h2'}>
-                                                        Olá, Bem vindo de volta
+                                                        Olá, Bem vindo(a) de volta
                                                     </Typography>
                                                     <Typography
                                                         variant="caption"
