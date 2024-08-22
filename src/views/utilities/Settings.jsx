@@ -8,7 +8,7 @@ import { Button, Divider, FormControl, InputLabel, MenuItem, Select, TextField }
 import { putRequest } from 'api/apiService';
 import { useDispatch, useSelector } from 'react-redux';
 import { InputWithMask } from 'utils/inputWithMask';
-import { formatCurrency, parseMonetaryValue } from 'utils/formatCurrency';
+import { formatCurrency } from 'utils/formatCurrency';
 import { formatMonth } from 'utils/formatMonths';
 
 const Settings = () => {
@@ -75,10 +75,16 @@ const Settings = () => {
 
     async function changeMaxGoal(e) {
         e.preventDefault();
+        let value = maxGoal;
 
-        if (parseMonetaryValue(maxGoal) && !isNaN(parseMonetaryValue(maxGoal)) && parseMonetaryValue(maxGoal) != selectData.meta_maxima) {
+        if (isNaN(value)) {
+            value = parseFloat(value.replace('R$', '').replace('.', '').replace(',', '.').trim());
+        }
+        if (parseFloat(value) !== parseFloat(selectData.meta_maxima)) {
+            setLoading(true);
             const url = `${import.meta.env.VITE_API_BASE_URL}/fechamentos/${selectData.id}/meta`;
-            await putRequest(url, { meta_maxima: parseMonetaryValue(maxGoal) }, dispatch).finally(() => {
+            await putRequest(url, { meta_maxima: value }, dispatch).finally(() => {
+                setMaxGoal(value);
                 setLoading(false);
             });
         }
@@ -86,11 +92,16 @@ const Settings = () => {
 
     async function changeMinGoal(e) {
         e.preventDefault();
+        let value = minGoal;
 
-        if (parseMonetaryValue(minGoal) && !isNaN(parseMonetaryValue(minGoal)) && parseMonetaryValue(minGoal) != selectData.meta_minima) {
+        if (isNaN(value)) {
+            value = parseFloat(value.replace('R$', '').replace('.', '').replace(',', '.').trim());
+        }
+        if (parseFloat(value) !== parseFloat(selectData.meta_minima)) {
             setLoading(true);
             const url = `${import.meta.env.VITE_API_BASE_URL}/fechamentos/${selectData.id}/meta`;
-            await putRequest(url, { meta_minima: parseMonetaryValue(minGoal) }, dispatch).finally(() => {
+            await putRequest(url, { meta_minima: value }, dispatch).finally(() => {
+                setMinGoal(value);
                 setLoading(false);
             });
         }
@@ -246,7 +257,7 @@ const Settings = () => {
                                                             />
                                                         </Grid>
                                                         <Grid item>
-                                                            <Button variant="contained" color="secondary">
+                                                            <Button type="submit" variant="contained" color="secondary">
                                                                 Alterar
                                                             </Button>
                                                         </Grid>
@@ -271,7 +282,7 @@ const Settings = () => {
                                                             />
                                                         </Grid>
                                                         <Grid item>
-                                                            <Button variant="contained" color="secondary">
+                                                            <Button type="submit" variant="contained" color="secondary">
                                                                 Alterar
                                                             </Button>
                                                         </Grid>
