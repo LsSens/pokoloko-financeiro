@@ -83,7 +83,7 @@ const Settings = () => {
         if (parseFloat(value) !== parseFloat(selectData.meta_maxima)) {
             setLoading(true);
             const url = `${import.meta.env.VITE_API_BASE_URL}/fechamentos/${selectData.id}/meta`;
-            await putRequest(url, { meta_maxima: value }, dispatch).finally(() => {
+            await putRequest(url, { meta_maxima: value, meta_minima: parseFloat(minGoal) }, dispatch).finally(() => {
                 setMaxGoal(value);
                 setLoading(false);
             });
@@ -100,7 +100,7 @@ const Settings = () => {
         if (parseFloat(value) !== parseFloat(selectData.meta_minima)) {
             setLoading(true);
             const url = `${import.meta.env.VITE_API_BASE_URL}/fechamentos/${selectData.id}/meta`;
-            await putRequest(url, { meta_minima: value }, dispatch).finally(() => {
+            await putRequest(url, { meta_minima: value, meta_maxima: parseFloat(maxGoal) }, dispatch).finally(() => {
                 setMinGoal(value);
                 setLoading(false);
             });
@@ -249,10 +249,10 @@ const Settings = () => {
                                                                 id="minGoals"
                                                                 name="minGoals"
                                                                 maskType="money"
-                                                                label="Meta Minima"
-                                                                placeholder="R$ 0,00"
+                                                                label="Meta minima"
                                                                 value={`R$ ${formatCurrency(minGoal)}`}
                                                                 setValue={setMinGoal}
+                                                                placeholder="R$ 0,00"
                                                                 type="text"
                                                             />
                                                         </Grid>
