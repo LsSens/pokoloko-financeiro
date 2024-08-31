@@ -7,7 +7,7 @@ import RedirectIfAuthenticated from './RedirectIfAuthenticated';
 
 // login option 3 routing
 const AuthLogin3 = Loadable(lazy(() => import('views/pages/authentication3/Login3')));
-const AuthRegister3 = Loadable(lazy(() => import('views/pages/authentication3/Register3')));
+const AuthForgot = Loadable(lazy(() => import('views/pages/authentication3/Forgot')));
 const Logout3 = Loadable(lazy(() => import('views/pages/authentication3/Logout3')));
 
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
@@ -21,8 +21,8 @@ const AuthenticationRoutes = {
             element: <RedirectIfAuthenticated element={<AuthLogin3 />} />
         },
         {
-            path: '/register',
-            element: <RedirectIfAuthenticated element={<AuthRegister3 />} />
+            path: '/forgot',
+            element: <RedirectIfAuthenticated element={<AuthForgot />} />
         },
         {
             path: '/logout',

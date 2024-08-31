@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -148,7 +149,13 @@ const AuthLogin = ({ ...others }) => {
                                 }
                                 label="Lembrar de mim"
                             />
-                            <Typography variant="subtitle1" color="primary.dark" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
+                            <Typography
+                                component={Link}
+                                to="/forgot"
+                                variant="subtitle1"
+                                color="primary.dark"
+                                sx={{ textDecoration: 'none', cursor: 'pointer' }}
+                            >
                                 Esqueceu a senha?
                             </Typography>
                         </Stack>
