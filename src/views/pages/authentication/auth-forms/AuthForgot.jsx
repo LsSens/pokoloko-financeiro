@@ -22,7 +22,6 @@ const AuthRegister = ({ ...others }) => {
 
     const handlePasswordReset = async (email) => {
         try {
-            console.log('teste');
             const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/forgot-password`, {
                 method: 'POST',
                 headers: {
@@ -46,7 +45,6 @@ const AuthRegister = ({ ...others }) => {
     };
 
     const handlePasswordChange = async (values) => {
-        console.log(values);
         if (values.password === '' || values.confirmPassword === '' || values.code === '') {
             return setMessage({ type: 'error', text: 'Preencha todos os campos' });
         }
