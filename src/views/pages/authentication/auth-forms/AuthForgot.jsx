@@ -22,6 +22,7 @@ const AuthRegister = ({ ...others }) => {
 
     const handlePasswordReset = async (email) => {
         try {
+            console.log('teste');
             const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/forgot-password`, {
                 method: 'POST',
                 headers: {
