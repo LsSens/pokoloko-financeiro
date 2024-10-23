@@ -156,7 +156,12 @@ export default function Financial() {
 
     const rows = selectData.valores_diarios
         .filter((item) => item.value > 0)
-        .map((item) => createData(item.day, item.value, selectData.ano, selectData.mes));
+        .map((item) => createData(item.day, item.value, selectData.ano, selectData.mes))
+        .sort((a, b) => {
+            const [dayA, monthA, yearA] = a.date.split('/').map(Number);
+            const [dayB, monthB, yearB] = b.date.split('/').map(Number);
+            return new Date(yearB, monthB - 1, dayB) - new Date(yearA, monthA - 1, dayA);
+        });
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -424,6 +429,7 @@ export default function Financial() {
                     </Table>
                 </TableContainer>
                 <TablePagination
+                    labelRowsPerPage="Linhas por pagina"
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
                     count={rows.length}
